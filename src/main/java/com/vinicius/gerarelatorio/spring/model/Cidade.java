@@ -1,25 +1,22 @@
 package com.vinicius.gerarelatorio.spring.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-
 /**
- * Classe responsável por conter atributos de um estado.
+ * Classe responsável por conter atributos de uma cidade.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @Entity
-public class Estado implements Serializable{
+public class Cidade implements Serializable{
 
 	/**
 	 * Serial version UID.
@@ -27,43 +24,45 @@ public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Representa o identificador do estado.
+	 * Representa o identificador da cidade.
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 	
 	/**
-	 * Representa o nome do estado.
+	 * Representa o nome da cidade.
 	 */
 	private String nome;
 	
 	/**
-	 * Lista de cidades.
+	 * Representa o estado.
 	 */
-	@OneToMany( cascade = CascadeType.ALL, mappedBy = "estadoId")
+	@ManyToOne
+	@JoinColumn( name = "estadoId")
 	@JsonBackReference
-	private List<Cidade> cidades = new ArrayList<Cidade>();
+	private Estado estadoId;
 	
 	/**
-	 * Construtor vazio
+	 * Construtor vazio.
 	 */
-	public Estado() { }
+	public Cidade() { }
 
 	/**
 	 * Construtor com argumentos.
-	 * @param id - Integer - identificador do estado.
-	 * @param nome - String - nome do estado.
+	 * @param id - Integer - identificador da cidade.
+	 * @param nome - String - nome da cidade.
 	 */
-	public Estado(Integer id, String nome) {
+	public Cidade(Integer id, String nome, Estado estadoId) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.estadoId = estadoId;
 	}
 
 	/**
 	 * Metodo get().
-	 * @return id - Integer - identificador do estado.
+	 * @return id - Integer - identificador da cidade.
 	 */
 	public Integer getId() {
 		return this.id;
@@ -71,7 +70,7 @@ public class Estado implements Serializable{
 
 	/**
 	 * Metodo set().
-	 * @param id - Integer - identificador do estado.
+	 * @param id - Integer - identificador da cidade.
 	 */
 	public void setId(final Integer id) {
 		this.id = id;
@@ -79,7 +78,7 @@ public class Estado implements Serializable{
 
 	/**
 	 * Metodo get().
-	 * @return nome - String - nome do estado.
+	 * @return nome - String - nome da cidade.
 	 */
 	public String getNome() {
 		return this.nome;
@@ -87,26 +86,26 @@ public class Estado implements Serializable{
 
 	/**
 	 * Metodo set().
-	 * @param nome - String - nome do estado.
+	 * @param nome - String - nome da cidade.
 	 */
 	public void setNome(final String nome) {
 		this.nome = nome;
 	}
-	
+
 	/**
 	 * Metodo get().
-	 * @return cidades - List<Cidade> - lista de cidades.
+	 * @return estados - Object - representa um estado.
 	 */
-	public List<Cidade> getCidades() {
-		return this.cidades;
+	public Estado getEstados() {
+		return this.estadoId;
 	}
-	
+
 	/**
 	 * Metodo set().
-	 * @param cidades - List<Cidade> - lista de cidades.
+	 * @param estados - Object - representa um estado.
 	 */
-	public void setCidades(final List<Cidade> cidades) {
-		this.cidades = cidades;
+	public void setEstados(final Estado estadoId) {
+		this.estadoId = estadoId;
 	}
 
 	/**
@@ -133,7 +132,7 @@ public class Estado implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -141,7 +140,6 @@ public class Estado implements Serializable{
 			return false;
 		return true;
 	}
-	
 	
 	
 

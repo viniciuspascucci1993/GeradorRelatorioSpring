@@ -18,11 +18,20 @@ public class EstadoService {
 	@Autowired
 	private EstadoRepository estadoRepository;
 	
+	/**
+	 * Metodo para listar todos os estados.
+	 * @return estadoRepository.findAll();
+	 */
 	public List<Estado> findAll() {
 		
 		return estadoRepository.findAll();
 	}
 	
+	/**
+	 * Metodo para criação de estado na base de dados.
+	 * @param estado - Object - estado.
+	 * @return estadoRepository.save(estado);
+	 */
 	public Estado insert( Estado estado ) {
 		
 		return this.estadoRepository.save(estado);
