@@ -39,9 +39,9 @@ public class Cidade implements Serializable{
 	 * Representa o estado.
 	 */
 	@ManyToOne
-	@JoinColumn( name = "estadoId")
+	@JoinColumn( name = "estado_id")
 	@JsonBackReference
-	private Estado estadoId;
+	private Estado estado_id;
 	
 	/**
 	 * Construtor vazio.
@@ -53,11 +53,11 @@ public class Cidade implements Serializable{
 	 * @param id - Integer - identificador da cidade.
 	 * @param nome - String - nome da cidade.
 	 */
-	public Cidade(Integer id, String nome, Estado estadoId) {
+	public Cidade(Integer id, String nome, Estado estado_id) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.estadoId = estadoId;
+		this.estado_id = estado_id;
 	}
 
 	/**
@@ -97,15 +97,15 @@ public class Cidade implements Serializable{
 	 * @return estados - Object - representa um estado.
 	 */
 	public Estado getEstados() {
-		return this.estadoId;
+		return this.estado_id;
 	}
 
 	/**
 	 * Metodo set().
 	 * @param estados - Object - representa um estado.
 	 */
-	public void setEstados(final Estado estadoId) {
-		this.estadoId = estadoId;
+	public void setEstados(final Estado estado_id) {
+		this.estado_id = estado_id;
 	}
 
 	/**

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.gerarelatorio.spring.model.Estado;
+import com.vinicius.gerarelatorio.spring.model.RelatorioGrafico;
 import com.vinicius.gerarelatorio.spring.repositories.EstadoRepository;
 
 /**
@@ -35,5 +36,14 @@ public class EstadoService {
 	public Estado insert( Estado estado ) {
 		
 		return this.estadoRepository.save(estado);
+	}
+	
+	/**
+	 * Metodo para contar as cidades a partir do estado.
+	 * @return estadoRepository.contarCidadesByEstados();
+	 */
+	public List<RelatorioGrafico> contarCidadesByEstados() {
+		
+		return estadoRepository.contarCidadesByEstados();
 	}
 }

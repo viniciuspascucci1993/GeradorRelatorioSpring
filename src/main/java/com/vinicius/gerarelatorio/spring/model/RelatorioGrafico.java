@@ -1,25 +1,12 @@
 package com.vinicius.gerarelatorio.spring.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 
 /**
- * Classe responsável por conter atributos de um estado.
+ * Classe POJO responsável por conter os atributos de um relatório de gráfico.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
-@Entity
-public class Estado implements Serializable{
+public class RelatorioGrafico implements Serializable{
 
 	/**
 	 * Serial version UID.
@@ -27,39 +14,38 @@ public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Representa o identificador do estado.
+	 * Representa o identificado do relatório de grafico.
 	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	/**
-	 * Representa o nome do estado.
+	 * Representa o nome do grafico.
 	 */
 	private String nome;
 	
 	/**
-	 * Lista de cidades.
+	 * Representa um total de cidades que o estado possui.
 	 */
-	@OneToMany( cascade = CascadeType.ALL, mappedBy = "estado_id")
-	@JsonBackReference
-	private List<Cidade> cidades = new ArrayList<Cidade>();
+	private Long total;
 	
 	/**
-	 * Construtor vazio
+	 * Construtor vazio.
 	 */
-	public Estado() { }
+	public RelatorioGrafico() { }
 
 	/**
 	 * Construtor com argumentos.
-	 * @param id - Integer - identificador do estado.
-	 * @param nome - String - nome do estado.
+	 * @param id - Integer - identificador do grafico.
+	 * @param nome - String - nome do grafico.
+	 * @param total - Integer - total de cidades que o estado possui
 	 */
-	public Estado(Integer id, String nome) {
+	public RelatorioGrafico(Integer id, String nome, Long total) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.total = total;
 	}
+
 
 	/**
 	 * Metodo get().
@@ -68,7 +54,7 @@ public class Estado implements Serializable{
 	public Integer getId() {
 		return this.id;
 	}
-
+	
 	/**
 	 * Metodo set().
 	 * @param id - Integer - identificador do estado.
@@ -79,7 +65,7 @@ public class Estado implements Serializable{
 
 	/**
 	 * Metodo get().
-	 * @return nome - String - nome do estado.
+	 * @return nome - String - nome do grafico.
 	 */
 	public String getNome() {
 		return this.nome;
@@ -87,26 +73,26 @@ public class Estado implements Serializable{
 
 	/**
 	 * Metodo set().
-	 * @param nome - String - nome do estado.
+	 * @param nome - String - nome do grafico.
 	 */
 	public void setNome(final String nome) {
 		this.nome = nome;
 	}
-	
+
 	/**
 	 * Metodo get().
-	 * @return cidades - List<Cidade> - lista de cidades.
+	 * @return total - Integer - total de cidades que o estado possui.
 	 */
-	public List<Cidade> getCidades() {
-		return this.cidades;
+	public Long getTotal() {
+		return this.total;
 	}
-	
+
 	/**
 	 * Metodo set().
-	 * @param cidades - List<Cidade> - lista de cidades.
+	 * @param total - Integer - total de cidades que o estado possui.
 	 */
-	public void setCidades(final List<Cidade> cidades) {
-		this.cidades = cidades;
+	public void setTotal(final Long total) {
+		this.total = total;
 	}
 
 	/**
@@ -133,7 +119,7 @@ public class Estado implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		RelatorioGrafico other = (RelatorioGrafico) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -141,8 +127,7 @@ public class Estado implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 
+	
+	
 }
