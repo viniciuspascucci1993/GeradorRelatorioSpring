@@ -1,5 +1,6 @@
 package com.vinicius.gerarelatorio.spring.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,15 @@ public class CidadeService {
 		cidade.setEstados(estado.get());
 		
 		return this.cidadeRepository.save(cidade);
+	}
+	
+	/**
+	 * Metodo parar gerar relatorio
+	 * @param estadoId - Integer - estado ID.
+	 * @return cidadeRepository.findAllCidadesByEstado(estadoId);
+	 */
+	public List<Cidade> gerarRelatorioCidade( Integer estadoId ) {
+		
+		return cidadeRepository.findAllCidadesByEstado(estadoId);
 	}
 }

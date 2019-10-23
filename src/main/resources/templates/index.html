@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://ultraq.net.mz/thymelead/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+	<title>Insert title here</title>
+
+</head>
+<body>
+	 <th:block layout:fragment="content">
+	 	<form th:action="@{/relatorios/html}" th:method="get">
+	 		<select name="estado">
+	 			<option>Selecione um Estado</option>
+	 			<option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.nome}"></option>
+	 		</select>
+	 		<br />
+	 		<br />
+	 	<button type="submit">Gerar Relatorio em formato HTML</button>
+	 	</form>
+	 	<br />
+	 	<br />
+	 	
+	 	<div>
+	 		<table>
+	 			<thead>
+	 				<tr>
+	 					<th>Identificador</th>
+	 					<th>Nome</th>
+	 				</tr>
+	 			</thead>
+	 			<tbody>
+	 				<tr th:each="cidade : ${list}">
+	 					<td th:text="${cidade.id}"></td>
+	 					<td th:text="${cidade.nome}"></td>
+	 				</tr>
+	 			</tbody>
+	 		</table>
+	 	
+	 	</div>
+	 </th:block> 
+	
+</body>
+</html>
