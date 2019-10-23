@@ -1,8 +1,12 @@
 package com.vinicius.gerarelatorio.spring.controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -14,8 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import com.vinicius.gerarelatorio.spring.model.Cidade;
+import com.vinicius.gerarelatorio.spring.model.Estado;
 import com.vinicius.gerarelatorio.spring.model.RelatorioGrafico;
 import com.vinicius.gerarelatorio.spring.services.CidadeService;
 import com.vinicius.gerarelatorio.spring.services.EstadoService;
@@ -89,5 +97,26 @@ public class RelatorioController {
 		
 		return ResponseEntity.ok().header("Content-Disposition", "inline; filename=relatorio.pdf")
 				.contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf));
+	}
+	
+	@RequestMapping(value = "/csv", method = RequestMethod.GET)
+	public void exportCsvDownload( HttpServletRequest request, HttpServletResponse response ) throws IOException {
+		
+		response.setHeader("Content-Disposition", "attachment; filename=relatorio.csv");
+		
+		String[] header = { "id", "nome" };
+		
+		ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+		
+		csvBeanWriter.writeHeader(header);
+		
+		List<Estado> list = estadoService.findAll();
+		
+		for (Estado estado : list) {
+			
+			csvBeanWriter.write(estado, header);
+		}
+		
+		csvBeanWriter.close();
 	}
 }

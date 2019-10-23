@@ -16,6 +16,7 @@ import com.vinicius.gerarelatorio.spring.model.Cidade;
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
 	
+	// Consulta Query utilizando alias (encontrar todas as cidades pelo estado).
 	@Query( value = "SELECT c.* FROM cidade AS c, estado as e WHERE e.id = estado_id AND estado_id = :estado_id", nativeQuery = true)
 	public List<Cidade> findAllCidadesByEstado( @Param("estado_id") Integer id);
 

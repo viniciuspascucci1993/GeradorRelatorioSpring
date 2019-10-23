@@ -16,6 +16,7 @@ import com.vinicius.gerarelatorio.spring.model.RelatorioGrafico;
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Integer>{
 	
+	// Consulta JPQL (somando o total de cidades que o estado possui).
 	@Query(value = "SELECT new com.vinicius.gerarelatorio.spring.model.RelatorioGrafico(estado.id, estado.nome, (select count(*) FROM Cidade cidade WHERE cidade.estado_id = estado.id ) ) FROM Estado estado")
 	public List<RelatorioGrafico> contarCidadesByEstados();
 

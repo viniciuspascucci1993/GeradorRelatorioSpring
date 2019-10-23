@@ -50,7 +50,7 @@ public class GeradorPDFUtil {
 			for (Cidade data : list) {
 				
 				PdfPCell body;
-				
+				 
 				body = new PdfPCell( new Phrase(data.getId().toString()) );
 				
 				body.setHorizontalAlignment(Element.ALIGN_CENTER);
