@@ -81,6 +81,13 @@ public class RelatorioController {
 		return "relatorios/graficos";
 	}
 	
+	/**
+	 * Metodo para exibir relatorio em PDF.
+	 * @param id - Integer - identificador.
+	 * @param model - Model - model
+	 * @return ResponseEntity.ok().header("Content-Disposition", "inline; filename=relatorio.pdf")
+				.contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf));
+	 */
 	@RequestMapping(value = "/pdf", method = RequestMethod.GET)
 	public ResponseEntity<InputStreamSource> geradorRelatorioPdf( @RequestParam(required = false, value = "estado") Integer id, Model model ) {
 		
@@ -99,6 +106,12 @@ public class RelatorioController {
 				.contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf));
 	}
 	
+	/**
+	 * Exxportar relatorio
+	 * @param request - HttpServletRequest - request.
+	 * @param response - HttpServletResponse - response.
+	 * @throws IOException - exceção IO.
+	 */
 	@RequestMapping(value = "/csv", method = RequestMethod.GET)
 	public void exportCsvDownload( HttpServletRequest request, HttpServletResponse response ) throws IOException {
 		
